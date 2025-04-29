@@ -42,6 +42,7 @@ dot config --local status.showUntrackedFiles no  # hide noisy untracked entries
 
 # 3️⃣  Run the main bootstrap script (installs packages & runtimes)
 bash ~/.dotfiles-meta/install.sh
+```
 
 Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 
@@ -49,11 +50,11 @@ Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 
 ## 🛠️ Daily workflow
 
-| Task              | Command                                               |
-| ----------------- | ----------------------------------------------------- |
-| Track a file      | `dot add ~/.vimrc && dot commit -m "Add vimrc"`       |
-| Update everything | run `install.sh` again – idempotent                   |
-| Push changes      | `dot push`                                            |
+| Task              | Command                                         |
+| ----------------- | ----------------------------------------------- |
+| Track a file      | `dot add ~/.vimrc && dot commit -m "Add vimrc"` |
+| Update everything | run `install.sh` again – idempotent             |
+| Push changes      | `dot push`                                      |
 
 ---
 
@@ -66,4 +67,7 @@ Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 ## 🪄 Extending this setup
 
 - Create a devcontainer / Codespaces file to test the bootstrap in CI.
+
+```
+
 ```
