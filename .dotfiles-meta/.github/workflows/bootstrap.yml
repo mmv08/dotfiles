@@ -1,0 +1,28 @@
+name: Bootstrap CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  bootstrap-test:
+    name: Test Bootstrap Script
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Prepare system
+        run: |
+          dnf upgrade --refresh -y
+          dnf install -y curl git sudo
+
+      - name: Run bootstrap (first pass)
+        run: bash ./install.sh
+
+      - name: Run bootstrap (idempotency check)
+        run: bash ./install.sh
