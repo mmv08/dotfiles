@@ -18,4 +18,7 @@ if [ ${#packages[@]} -eq 0 ]; then
 fi
 
 echo "Installing DNF packages: ${packages[*]}"
+# Install development tool groups
+sudo dnf group install -y c-development development-tools
+
 sudo dnf install -y "${packages[@]}"
