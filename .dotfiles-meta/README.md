@@ -68,6 +68,19 @@ Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 
 - Create a devcontainer / Codespaces file to test the bootstrap in CI.
 
-```
+## ⚙️ GitHub Actions for Development
 
-```
+By default, GitHub only discovers workflows located in `.github/workflows/` at the repository root. If your workflows are nested inside the meta folder, they won’t be picked up. To enable CI tests on your dotfiles:
+
+1. Move (or copy) the `.github` directory into your repo’s working tree root:
+
+   ```bash
+   mv ~/.dotfiles-meta/.github .github
+   dot add .github
+   dot commit -m "Expose GitHub Actions workflows at repo root"
+   dot push
+   ```
+
+2. Ensure your workflow YAML files live under `.github/workflows/` in the root of your bare repo checkout.
+
+Now any push or PR to `main` will trigger your bootstrap CI workflow.
