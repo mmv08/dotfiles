@@ -22,7 +22,7 @@ jobs:
           dnf install -y curl git sudo
 
       - name: Run bootstrap (first pass)
-        run: bash ./install.sh
+        run: bash ./.dotfiles-meta/install.sh
 
       - name: Run bootstrap (idempotency check)
-        run: bash ./install.sh
+        run: bash ./.dotfiles-meta/install.sh
