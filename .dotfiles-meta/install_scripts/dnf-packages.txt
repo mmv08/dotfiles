@@ -2,3 +2,4 @@ fastfetch
 gcc
 clang
 btop
+wget

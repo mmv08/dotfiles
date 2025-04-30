@@ -11,6 +11,7 @@ priority=(
   "install_zsh.sh"
   "install_zsh_plugins.sh"
   "install_powerlevel10k.sh"
+  "install_dnf.sh"
 )
 
 # Build ordered list of scripts to run
