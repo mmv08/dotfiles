@@ -9,11 +9,13 @@ sudo dnf update -y
 # Install Zsh
 sudo dnf install -y zsh
 
-# Install curl and git if not already installed
-sudo dnf install -y curl git
-
-# Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# Install Oh My Zsh if not already installed
+if [ -d "${HOME}/.oh-my-zsh" ]; then
+  echo "→ Oh My Zsh already installed, skipping installation"
+else
+  echo "→ Installing Oh My Zsh"
+  sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
 # Change the default shell to Zsh using a shell builtin
 ZSH_PATH=$(command -v zsh || true)
