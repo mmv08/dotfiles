@@ -41,7 +41,7 @@ dot config --local status.showUntrackedFiles no  # hide noisy untracked entries
 # (Optional) add the alias permanently to ~/.zshrc
 
 # 3️⃣  Run the main bootstrap script (installs packages & runtimes)
-bash ~/.dotfiles-meta/install.sh
+~/.dotfiles/.dotfiles-meta/install.sh
 ```
 
 Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
@@ -55,12 +55,6 @@ Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 | Track a file      | `dot add ~/.vimrc && dot commit -m "Add vimrc"` |
 | Update everything | run `install.sh` again – idempotent             |
 | Push changes      | `dot push`                                      |
-
----
-
-## 🔄 Keeping scripts up‑to‑date
-
-- **`install.sh`** – package list lives in a simple Bash array so adding/removing tools is one edit.
 
 ---
 
