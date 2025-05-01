@@ -30,7 +30,7 @@ Add new scripts or docs to `~/.dotfiles-meta`, commit them the same way as any o
 
 ```bash
 # 1️⃣  Clone the bare repo into ~/.dotfiles
-git clone --bare git@github.com:mmv08/dotfiles.git $HOME/.dotfiles
+git clone --bare http://github.com/mmv08/dotfiles $HOME/.dotfiles
 
 # 2️⃣  Create the helper alias and check out tracked files
 alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
