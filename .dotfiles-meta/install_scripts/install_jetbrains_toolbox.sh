@@ -22,6 +22,7 @@ mkdir -p ~/.local/bin
 ln -sf ~/.local/share/JetBrains/Toolbox/jetbrains-toolbox ~/.local/bin/jetbrains-toolbox
 
 echo "→ Creating desktop entry..."
+mkdir -p ~/.local/share/applications
 cat > ~/.local/share/applications/jetbrains-toolbox.desktop <<EOF
 [Desktop Entry]
 Name=JetBrains Toolbox
