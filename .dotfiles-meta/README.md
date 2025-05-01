@@ -24,8 +24,6 @@ These dotfiles reproduce my day‑to‑day development environment on **Fedora**
 
 Add new scripts or docs to `~/.dotfiles-meta`, commit them the same way as any other file.
 
----
-
 ## 🚀 Bootstrap on a fresh machine
 
 ```bash
@@ -46,8 +44,6 @@ dot config --local status.showUntrackedFiles no  # hide noisy untracked entries
 
 Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 
----
-
 ## 🛠️ Daily workflow
 
 | Task              | Command                                         |
@@ -55,12 +51,6 @@ Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
 | Track a file      | `dot add ~/.vimrc && dot commit -m "Add vimrc"` |
 | Update everything | run `install.sh` again – idempotent             |
 | Push changes      | `dot push`                                      |
-
----
-
-## 🪄 Extending this setup
-
-- Create a devcontainer / Codespaces file to test the bootstrap in CI.
 
 ## ⚙️ GitHub Actions for Development
 
