@@ -41,7 +41,7 @@ dot config --local status.showUntrackedFiles no  # hide noisy untracked entries
 # (Optional) add the alias permanently to ~/.zshrc
 
 # 3️⃣  Run the main bootstrap script (installs packages & runtimes)
-~/.dotfiles/.dotfiles-meta/install.sh
+~/.dotfiles-meta/install.sh
 ```
 
 Open a new shell so PATH changes take effect (Rust, nvm, Go, etc.).
