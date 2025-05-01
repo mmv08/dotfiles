@@ -20,7 +20,7 @@ sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 # 3. Enable and start the Docker daemon
 ###############################################################################
 echo "→ Enabling and starting docker.service …"
-if [ "$(ps -p 1 -o comm=)" = "systemd" ]; then
+if [ -d /run/systemd/system ]; then
   sudo systemctl enable --now docker
 else
   echo "Non-systemd environment detected; skipping daemon start"
@@ -29,13 +29,14 @@ fi
 ###############################################################################
 # 4. Add current user to docker group (if not already a member)
 ###############################################################################
-echo "→ Adding user '$USER' to docker group …"
+DOCKER_USER="${USER:-$(whoami)}"
+echo "→ Adding user '$DOCKER_USER' to docker group …"
 # Create docker group if it doesn't exist
 if ! getent group docker > /dev/null; then
   sudo groupadd docker
 fi
 
-sudo usermod -aG docker "$USER"
+sudo usermod -aG docker "$DOCKER_USER"
 
 echo
 echo "✔ Docker and Compose installed."
