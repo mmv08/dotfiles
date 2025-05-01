@@ -7,7 +7,7 @@ These dotfiles reproduce my day‑to‑day development environment on **Fedora**
 ## 🧩 Philosophy
 
 - **Simple & transparent** – just Git and a couple of scripts.
-- **Track only what matters** – default config is fine unless I’ve actually changed it.
+- **Track only what matters** – default config is fine unless I've actually changed it.
 - **Reproducible** – a one‑liner checks out the dotfiles, another installs the tools.
 
 ---
@@ -17,7 +17,7 @@ These dotfiles reproduce my day‑to‑day development environment on **Fedora**
 | Path                                | Purpose                                                                                                                                                    |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `~/.dotfiles`                       | **Bare Git repo** (no working tree)                                                                                                                        |
-| `~/.dotfiles-meta/`                 | Meta‑files that don’t belong directly in `$HOME` – e.g. install scripts, docs, images                                                                      |
+| `~/.dotfiles-meta/`                 | Meta‑files that don't belong directly in `$HOME` – e.g. install scripts, docs, images                                                                      |
 | `~/.dotfiles-meta/install.sh`       | Main bootstrap script ➜ installs Fedora packages, rustup, nvm, Oh‑My‑Zsh, VS Code, etc.                                                                    |
 | `~/.dotfiles-meta/install_scripts/` | Directory containing individual install scripts (install_1password.sh, install_go.sh, install_node.sh, install_rust.sh, install_vscode.sh, install_zsh.sh) |
 | dot‑tracked files                   | Any real dotfile you see in `$HOME` (`.zshrc`, `.gitconfig`, `~/.config/Code/User/settings.json`, …)                                                       |

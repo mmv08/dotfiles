@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+echo "Updating system packages..."
+sudo dnf upgrade --refresh -y
+
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 SCRIPTS_DIR="$SCRIPT_DIR/install_scripts"
 

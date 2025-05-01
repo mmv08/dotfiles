@@ -1,26 +1,32 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Exit on any error
-set -e
+# Ensure curl is installed
+if ! command -v curl >/dev/null; then
+  echo "Installing curl..."
+  sudo dnf install -y curl
+fi
 
-# Install curl if not already installed
-sudo dnf install -y curl
-
-# Download and install NVM
+# Setup NVM
 export NVM_DIR="$HOME/.nvm"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+if [ ! -d "$NVM_DIR" ]; then
+  echo "Installing NVM..."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+else
+  echo "Updating NVM..."
+  git -C "$NVM_DIR" pull --ff-only
+fi
 
-# Load NVM into current shell session
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# Load NVM
+# shellcheck source=/dev/null
+. "$NVM_DIR/nvm.sh"
 
-# Install the latest LTS version of Node.js
+# Install or update Node.js LTS version
+echo "Installing or updating Node.js LTS version..."
 nvm install --lts
-
-# Set the installed LTS version as default
 nvm alias default 'lts/*'
 
 # Verify installation
-node -v
-npm -v
+echo "Node.js version: $(nvm current)"
+echo "npm version: $(npm -v)"
 
