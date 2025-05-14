@@ -1,23 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-# Exit immediately if a command exits with a non-zero status
-set -e
+# Install or update rustup and the Rust toolchain
+echo "Checking for rustup..."
+if command -v rustup >/dev/null; then
+  echo "Updating Rust toolchain..."
+  rustup update
+else
+  echo "Installing rustup and Rust toolchain..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
 
-# Update system packages
-echo "Updating system packages..."
-sudo dnf upgrade --refresh -y
+# Source environment if available
+echo "Configuring Cargo environment..."
+if [ -f "$HOME/.cargo/env" ]; then
+  # shellcheck source=/dev/null
+  source "$HOME/.cargo/env"
+fi
 
-# Download and run the rustup installation script
-echo "Installing Rust using rustup..."
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-# Source the environment to update current shell session
-echo "Configuring environment..."
-source "$HOME/.cargo/env"
-
-# Verify Rust installation
-echo "Verifying Rust installation..."
-rustc --version
-cargo --version
-
-echo "Rust installation completed successfully!"
+echo "Rust version: $(rustc --version)"
+echo "Cargo version: $(cargo --version)"
+echo "Rust installation or update completed successfully!"
