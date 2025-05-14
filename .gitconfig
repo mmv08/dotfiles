@@ -3,3 +3,5 @@
 # Please adapt and uncomment the following lines:
 	name = Mikhail Mikheev
 	email = 16622558+mmv08@users.noreply.github.com
+[pull]
+	rebase = false
