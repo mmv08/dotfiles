@@ -126,3 +126,4 @@ export PATH="$PATH:/home/mmv/.foundry/bin"
 
 # load zsh-autosuggestions
 source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+export PATH=$HOME/.local/bin:$PATH

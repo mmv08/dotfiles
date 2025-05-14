@@ -12,6 +12,8 @@ priority=(
   "install_zsh_plugins.sh"
   "install_powerlevel10k.sh"
   "install_dnf.sh"
+  "install_vscode.sh"
+  "install_protonvpn.sh"
 )
 
 # Build ordered list of scripts to run
