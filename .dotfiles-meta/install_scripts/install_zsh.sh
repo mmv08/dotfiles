@@ -7,6 +7,78 @@ source "$SCRIPT_DIR/utils.sh"
 PLUGINS_ONLY="${DOTFILES_ZSH_PLUGINS_ONLY:-0}"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
+canonical_path() {
+  local path="$1"
+
+  readlink -f "$path" 2>/dev/null || printf '%s\n' "$path"
+}
+
+shell_is_allowed() {
+  local expected_shell="$1"
+  local shell
+
+  while IFS= read -r shell; do
+    [[ -z "$shell" || "$shell" == \#* ]] && continue
+
+    if [ "$(canonical_path "$shell")" = "$expected_shell" ]; then
+      return 0
+    fi
+  done < /etc/shells
+
+  return 1
+}
+
+set_zsh_as_login_shell() {
+  local zsh_path
+  local zsh_shell
+  local target_user
+  local passwd_entry
+  local current_shell
+
+  if [ "${CI:-false}" = "true" ]; then
+    echo "Skipping login shell change in CI"
+    return 0
+  fi
+
+  zsh_path="$(command -v zsh)"
+  zsh_shell="$(canonical_path "$zsh_path")"
+  target_user="${SUDO_USER:-${USER:-}}"
+
+  if [ -z "$target_user" ]; then
+    target_user="$(id -un)"
+  fi
+
+  if [ "$target_user" = "root" ]; then
+    echo "Skipping login shell change for root"
+    return 0
+  fi
+
+  passwd_entry="$(getent passwd "$target_user" || true)"
+  if [ -z "$passwd_entry" ]; then
+    echo "Could not determine login shell for $target_user" >&2
+    return 1
+  fi
+
+  IFS=: read -r _ _ _ _ _ _ current_shell _ <<< "$passwd_entry"
+  if [ "$(canonical_path "$current_shell")" = "$zsh_shell" ]; then
+    echo "Login shell already set to zsh"
+    return 0
+  fi
+
+  if ! shell_is_allowed "$zsh_shell"; then
+    echo "$zsh_path is not listed in /etc/shells; refusing to set it as the login shell" >&2
+    return 1
+  fi
+
+  echo "Changing login shell for $target_user from $current_shell to $zsh_path..."
+  if command_exists chsh; then
+    sudo chsh -s "$zsh_path" "$target_user"
+  else
+    sudo usermod --shell "$zsh_path" "$target_user"
+  fi
+  echo "Login shell changed to zsh; start a new login session for it to take effect"
+}
+
 install_plugin() {
   local repo_url="$1"
   local plugin_dir="$2"
@@ -50,7 +122,7 @@ fi
 # Install Oh My Zsh if not present
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "Installing Oh My Zsh..."
-  export KEEP_ZSHRC=yes RUNZSH=no CHSH=yes
+  export KEEP_ZSHRC=yes RUNZSH=no CHSH=no
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
   # Oh My Zsh overwrites .zshrc even with KEEP_ZSHRC=yes, so we restore ours
@@ -72,6 +144,8 @@ if [ -n "${DOTFILES_ZSHRC_BACKUP:-}" ] && [ -f "$DOTFILES_ZSHRC_BACKUP" ]; then
   cp "$DOTFILES_ZSHRC_BACKUP" "$HOME/.zshrc"
   echo "Bootstrap .zshrc restored successfully"
 fi
+
+set_zsh_as_login_shell
 
 install_zsh_plugins
 echo "Zsh plugin installation completed"

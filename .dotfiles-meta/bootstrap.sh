@@ -162,7 +162,7 @@ main() {
     log_success "🎉 Bootstrap completed successfully!"
     echo ""
     echo "  Next steps:"
-    echo "  1. Restart your terminal or run: source ~/.zshrc"
+    echo "  1. Restart your terminal or run: exec zsh"
     echo "  2. Use 'dot' command to manage your dotfiles:"
     echo "     dot status        - Check status"
     echo "     dot add <file>    - Track a new file"

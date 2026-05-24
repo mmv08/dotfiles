@@ -14,6 +14,7 @@ This will:
 - Clone the dotfiles repository
 - Backup any conflicting files
 - Install all packages and configurations
+- Set Zsh as your login shell
 - Preserve your custom .zshrc through Oh My Zsh installation
 
 ## 📂 Structure
